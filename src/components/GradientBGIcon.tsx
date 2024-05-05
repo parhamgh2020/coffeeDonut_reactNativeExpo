@@ -1,16 +1,16 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import {COLORS, SPACING} from '../theme/theme';
-import CustomIcon from './CustomIcon';
+import { LinearGradient } from 'expo-linear-gradient';
+import { AntDesign } from '@expo/vector-icons';
+
 
 interface GradientBGIconProps {
-  name: string;
   color: string;
   size: number;
 }
 
-const GradientBGIcon: React.FC<GradientBGIconProps> = ({name, color, size}) => {
+const GradientBGIcon: React.FC<GradientBGIconProps> = ({color, size}) => {
   return (
     <View style={styles.Container}>
       <LinearGradient
@@ -18,7 +18,7 @@ const GradientBGIcon: React.FC<GradientBGIconProps> = ({name, color, size}) => {
         end={{x: 1, y: 1}}
         colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
         style={styles.LinearGradientBG}>
-        <CustomIcon name={name} color={color} size={size} />
+        <AntDesign name={'menu-fold'} color={color} size={size} />
       </LinearGradient>
     </View>
   );
