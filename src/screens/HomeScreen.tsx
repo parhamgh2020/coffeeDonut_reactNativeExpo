@@ -5,6 +5,7 @@ const HomeScreen = () => {
   return (
     <View>
       <Text>HomeScreen</Text>
+      <Text style={{ fontFamily: 'Inter-Black', fontSize: 30 }}>Inter Black</Text>
     </View>
   )
 }
