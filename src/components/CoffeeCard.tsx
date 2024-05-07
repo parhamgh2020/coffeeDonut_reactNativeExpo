@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 import {
   BORDERRADIUS,
   COLORS,
@@ -16,8 +16,8 @@ import {
   FONTSIZE,
   SPACING,
 } from '../theme/theme';
-import CustomIcon from './CustomIcon';
 import BGIcon from './BGIcon';
+import { AntDesign } from '@expo/vector-icons';
 
 const CARD_WIDTH = Dimensions.get('window').width * 0.32;
 
@@ -57,7 +57,7 @@ const CoffeeCard: React.FC<CoffeeCardProps> = ({
         style={styles.CardImageBG}
         resizeMode="cover">
         <View style={styles.CardRatingContainer}>
-          <CustomIcon
+          <AntDesign
             name={'star'}
             color={COLORS.primaryOrangeHex}
             size={FONTSIZE.size_16}

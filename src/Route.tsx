@@ -124,12 +124,15 @@ export default Route;
 
 const styles = StyleSheet.create({
   tabBarStyle: {
-    height: 80,
+    height: 60,
     position: "absolute",
-    backgroundColor: COLORS.primaryBlackRGBA,
+    alignItems:'flex-end',
+    backgroundColor: COLORS.primaryBlackHex,
     borderTopWidth: 0,
     elevation: 0,
     borderTopColor: "transparent",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
   },
   BlurViewStyles: {
     position: "absolute",
