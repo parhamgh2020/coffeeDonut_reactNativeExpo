@@ -47,8 +47,8 @@ const CategoryScroller: React.FC<CategoryScrollerProp> = ({
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.CategoryScrollViewStyle}
     >
-      {categories.map((data, index) => (
-        <View key={data.id} style={styles.CategoryScrollViewContainer}>
+      {categories.map((data: any, index: any) => (
+        <View key={index} style={styles.CategoryScrollViewContainer}>
           <TouchableOpacity
             style={styles.CategoryScrollViewItem}
             onPress={() => handleCategorySelect(index)}

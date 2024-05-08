@@ -28,9 +28,9 @@ const Route = () => {
           headerShown: false,
           tabBarShowLabel: false,
           tabBarStyle: styles.tabBarStyle,
-          tabBarBackground: () => (
-            <BlurView intensity={15} style={styles.BlurViewStyles} />
-          ),
+          // tabBarBackground: () => (
+          //   <BlurView intensity={15} style={styles.BlurViewStyles} />
+          // ),
         }}
       >
         <Tab.Screen

@@ -137,12 +137,12 @@ const HomeScreen = ({ navigation }: any) => {
           CoffeeList={CoffeeList}
           categoryIndex={categoryIndex}
         />
-        {/* <ProductFlatList
+        <ProductFlatList
           ListRef={ListRef}
           sortedCoffee={sortedCoffee}
           CoffeeCardAddToCart={CoffeeCardAddToCart}
           navigation={navigation}
-        /> */}
+        />
       </ScrollView>
     </SafeAreaView>
   );

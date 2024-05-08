@@ -5,7 +5,7 @@ import {
   FlatList,
   StyleSheet,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../theme/theme";
 import CoffeeCard from "./CoffeeCard";
