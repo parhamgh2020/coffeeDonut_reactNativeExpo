@@ -5,6 +5,8 @@ import {
   StyleSheet,
   FlatList,
   ToastAndroid,
+  View,
+  Dimensions,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -137,12 +139,21 @@ const HomeScreen = ({ navigation }: any) => {
           CoffeeList={CoffeeList}
           categoryIndex={categoryIndex}
         />
+        {/* Coffee Flatlist */}
         <ProductFlatList
           ListRef={ListRef}
           sortedCoffee={sortedCoffee}
           CoffeeCardAddToCart={CoffeeCardAddToCart}
           navigation={navigation}
         />
+        {/* Beans Flatlist */}
+        <ProductFlatList
+          ListRef={ListRef}
+          sortedCoffee={BeanList}
+          CoffeeCardAddToCart={CoffeeCardAddToCart}
+          navigation={navigation}
+        />
+        <View style={styles.footer} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -170,5 +181,8 @@ const styles = StyleSheet.create({
     marginTop: SPACING.space_20,
     fontFamily: FONTFAMILY.poppins_medium,
     color: COLORS.secondaryLightGreyHex,
+  },
+  footer: {
+    height: 60,
   },
 });

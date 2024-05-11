@@ -29,7 +29,7 @@ const ProductFlatList: React.FC<ProductFlatListProp> = ({
       horizontal
       ListEmptyComponent={
         <View style={styles.EmptyListContainer}>
-          <Text style={styles.CategoryText}>No Coffee Available</Text>
+          <Text style={styles.CategoryText}>Not Available</Text>
         </View>
       }
       showsHorizontalScrollIndicator={false}
