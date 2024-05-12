@@ -1,15 +1,38 @@
-import React from 'react';
-import {StyleSheet, Image, View} from 'react-native';
-import {COLORS, SPACING} from '../theme/theme';
+import React from "react";
+import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
+import { COLORS, SPACING } from "../theme/theme";
+import { useState } from "react";
+import * as ImagePicker from "expo-image-picker";
 
 const ProfilePic = () => {
+  const [image, setImage] = useState(null);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result: any = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
   return (
-    <View style={styles.ImageContainer}>
-      <Image
-        source={require('../assets/app_images/avatar.png')}
-        style={styles.Image}
-      />
-    </View>
+    <TouchableOpacity onPress={pickImage} style={styles.ImageContainer}>
+      {image ? (
+        <Image source={{ uri: image }} style={styles.Image} />
+      ) : (
+        <Image
+          source={require("../assets/app_images/avatar.png")}
+          style={styles.Image}
+        />
+      )}
+    </TouchableOpacity>
   );
 };
 
@@ -20,9 +43,9 @@ const styles = StyleSheet.create({
     borderRadius: SPACING.space_12,
     borderWidth: 2,
     borderColor: COLORS.secondaryDarkGreyHex,
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
   },
   Image: {
     height: SPACING.space_36,
