@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View, ImageProps} from 'react-native';
 import React from 'react';
 import ImageBackgroundInfo from './ImageBackgroundInfo';
-import LinearGradient from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 import {
   BORDERRADIUS,
   COLORS,

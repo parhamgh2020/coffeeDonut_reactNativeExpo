@@ -72,29 +72,16 @@ export const useStore = create(
       addToFavoriteList: (type: string, id: string) =>
         set(
           produce(state => {
-            if (type == 'Coffee') {
-              for (let i = 0; i < state.CoffeeList.length; i++) {
-                if (state.CoffeeList[i].id == id) {
-                  if (state.CoffeeList[i].favourite == false) {
-                    state.CoffeeList[i].favourite = true;
-                    state.FavoritesList.unshift(state.CoffeeList[i]);
+            const list = type === 'Coffee' ? state.CoffeeList : state.BeanList;
+            const favoritesList = type === 'Coffee' ? state.FavoritesList : state.FavoritesList;
+
+            const item = list.find((item: any) => item.id === id);
+            if (item) {
+              if (!item.favourite) {
+                item.favourite = true;
+                favoritesList.unshift(item);
                   } else {
-                    state.CoffeeList[i].favourite = false;
-                  }
-                  break;
-                }
-              }
-            } else if (type == 'Bean') {
-              for (let i = 0; i < state.BeanList.length; i++) {
-                if (state.BeanList[i].id == id) {
-                  if (state.BeanList[i].favourite == false) {
-                    state.BeanList[i].favourite = true;
-                    state.FavoritesList.unshift(state.BeanList[i]);
-                  } else {
-                    state.BeanList[i].favourite = false;
-                  }
-                  break;
-                }
+                item.favourite = false;
               }
             }
           }),
@@ -102,37 +89,17 @@ export const useStore = create(
       deleteFromFavoriteList: (type: string, id: string) =>
         set(
           produce(state => {
-            if (type == 'Coffee') {
-              for (let i = 0; i < state.CoffeeList.length; i++) {
-                if (state.CoffeeList[i].id == id) {
-                  if (state.CoffeeList[i].favourite == true) {
-                    state.CoffeeList[i].favourite = false;
-                  } else {
-                    state.CoffeeList[i].favourite = true;
-                  }
-                  break;
-                }
-              }
-            } else if (type == 'Beans') {
-              for (let i = 0; i < state.BeanList.length; i++) {
-                if (state.BeanList[i].id == id) {
-                  if (state.BeanList[i].favourite == true) {
-                    state.BeanList[i].favourite = false;
-                  } else {
-                    state.BeanList[i].favourite = true;
-                  }
-                  break;
-                }
-              }
-            }
-            let spliceIndex = -1;
-            for (let i = 0; i < state.FavoritesList.length; i++) {
-              if (state.FavoritesList[i].id == id) {
-                spliceIndex = i;
-                break;
-              }
-            }
-            state.FavoritesList.splice(spliceIndex, 1);
+      let listToUpdate = type === 'Coffee' ? state.CoffeeList : state.BeanList;
+
+      const itemIndex = listToUpdate.findIndex(item => item.id === id);
+      if (itemIndex !== -1) {
+        listToUpdate[itemIndex].favourite = !listToUpdate[itemIndex].favourite;
+      }
+
+      const favoriteIndex = state.FavoritesList.findIndex(item => item.id === id);
+      if (favoriteIndex !== -1) {
+        state.FavoritesList.splice(favoriteIndex, 1);
+      }
           }),
         ),
       incrementCartItemQuantity: (id: string, size: string) =>
