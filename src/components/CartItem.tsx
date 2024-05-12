@@ -7,7 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 import {
   BORDERRADIUS,
   COLORS,
@@ -15,7 +15,7 @@ import {
   FONTSIZE,
   SPACING,
 } from '../theme/theme';
-import CustomIcon from './CustomIcon';
+import { AntDesign } from '@expo/vector-icons';
 
 interface CartItemProps {
   id: string;
@@ -90,7 +90,7 @@ const CartItem: React.FC<CartItemProps> = ({
                   onPress={() => {
                     decrementCartItemQuantityHandler(id, data.size);
                   }}>
-                  <CustomIcon
+                  <AntDesign
                     name="minus"
                     color={COLORS.primaryWhiteHex}
                     size={FONTSIZE.size_10}
@@ -106,8 +106,8 @@ const CartItem: React.FC<CartItemProps> = ({
                   onPress={() => {
                     incrementCartItemQuantityHandler(id, data.size);
                   }}>
-                  <CustomIcon
-                    name="add"
+                  <AntDesign
+                    name="plus"
                     color={COLORS.primaryWhiteHex}
                     size={FONTSIZE.size_10}
                   />
@@ -157,7 +157,7 @@ const CartItem: React.FC<CartItemProps> = ({
                 onPress={() => {
                   decrementCartItemQuantityHandler(id, prices[0].size);
                 }}>
-                <CustomIcon
+                <AntDesign
                   name="minus"
                   color={COLORS.primaryWhiteHex}
                   size={FONTSIZE.size_10}
@@ -173,8 +173,8 @@ const CartItem: React.FC<CartItemProps> = ({
                 onPress={() => {
                   incrementCartItemQuantityHandler(id, prices[0].size);
                 }}>
-                <CustomIcon
-                  name="add"
+                <AntDesign
+                  name="plus"
                   color={COLORS.primaryWhiteHex}
                   size={FONTSIZE.size_10}
                 />

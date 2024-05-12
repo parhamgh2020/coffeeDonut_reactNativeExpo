@@ -1,14 +1,14 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
-import React from 'react';
-import LinearGradient from 'react-native-linear-gradient';
+import { StyleSheet, Text, View, Image } from "react-native";
+import React from "react";
+import { LinearGradient } from "expo-linear-gradient";
 import {
   BORDERRADIUS,
   COLORS,
   FONTFAMILY,
   FONTSIZE,
   SPACING,
-} from '../theme/theme';
-import CustomIcon from './CustomIcon';
+} from "../theme/theme";
+import { Entypo } from "@expo/vector-icons";
 
 interface PaymentMethodProps {
   paymentMode: string;
@@ -33,16 +33,18 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
               ? COLORS.primaryOrangeHex
               : COLORS.primaryGreyHex,
         },
-      ]}>
+      ]}
+    >
       {isIcon ? (
         <LinearGradient
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 1}}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
           colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
-          style={styles.LinearGradientWallet}>
+          style={styles.LinearGradientWallet}
+        >
           <View style={styles.WalletRow}>
-            <CustomIcon
-              name={'wallet'}
+            <Entypo
+              name={"wallet"}
               color={COLORS.primaryOrangeHex}
               size={FONTSIZE.size_30}
             />
@@ -52,10 +54,11 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
         </LinearGradient>
       ) : (
         <LinearGradient
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 1}}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
           colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
-          style={styles.LinearGradientRegular}>
+          style={styles.LinearGradientRegular}
+        >
           <Image source={icon} style={styles.PaymentImage} />
           <Text style={styles.PaymentTitle}>{name}</Text>
         </LinearGradient>
@@ -71,22 +74,22 @@ const styles = StyleSheet.create({
     borderWidth: 3,
   },
   LinearGradientWallet: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     padding: SPACING.space_12,
     paddingHorizontal: SPACING.space_24,
     gap: SPACING.space_24,
     borderRadius: BORDERRADIUS.radius_15 * 2,
   },
   WalletRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: SPACING.space_24,
   },
   LinearGradientRegular: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: SPACING.space_12,
     paddingHorizontal: SPACING.space_24,
     gap: SPACING.space_24,

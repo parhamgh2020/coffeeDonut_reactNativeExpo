@@ -1,13 +1,13 @@
-import {StyleSheet, Text, View, ImageProps, Image} from 'react-native';
-import React from 'react';
-import LinearGradient from 'react-native-linear-gradient';
+import { StyleSheet, Text, View, ImageProps, Image } from "react-native";
+import React from "react";
+import { LinearGradient } from "expo-linear-gradient";
 import {
   BORDERRADIUS,
   COLORS,
   FONTFAMILY,
   FONTSIZE,
   SPACING,
-} from '../theme/theme';
+} from "../theme/theme";
 
 interface OrderItemCardProps {
   type: string;
@@ -28,10 +28,11 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
 }) => {
   return (
     <LinearGradient
-      start={{x: 0, y: 0}}
-      end={{x: 1, y: 1}}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
       colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
-      style={styles.CardLinearGradient}>
+      style={styles.CardLinearGradient}
+    >
       <View style={styles.CardInfoContainer}>
         <View style={styles.CardImageInfoContainer}>
           <Image source={imagelink_square} style={styles.Image} />
@@ -55,9 +56,10 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
                   styles.SizeText,
                   {
                     fontSize:
-                      type == 'Bean' ? FONTSIZE.size_12 : FONTSIZE.size_16,
+                      type == "Bean" ? FONTSIZE.size_12 : FONTSIZE.size_16,
                   },
-                ]}>
+                ]}
+              >
                 {data.size}
               </Text>
             </View>
@@ -90,14 +92,14 @@ const styles = StyleSheet.create({
     borderRadius: BORDERRADIUS.radius_25,
   },
   CardInfoContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   CardImageInfoContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: SPACING.space_20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   Image: {
     height: 90,
@@ -124,9 +126,9 @@ const styles = StyleSheet.create({
   },
   CardTableRow: {
     flex: 1,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   SizeBoxLeft: {
     backgroundColor: COLORS.primaryBlackHex,
@@ -134,8 +136,8 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopLeftRadius: BORDERRADIUS.radius_10,
     borderBottomLeftRadius: BORDERRADIUS.radius_10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRightWidth: 1,
     borderRightColor: COLORS.primaryGreyHex,
   },
@@ -149,8 +151,8 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopRightRadius: BORDERRADIUS.radius_10,
     borderBottomRightRadius: BORDERRADIUS.radius_10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderLeftWidth: 1,
     borderLeftColor: COLORS.primaryGreyHex,
   },
@@ -164,7 +166,7 @@ const styles = StyleSheet.create({
   },
   CardQuantityPriceText: {
     flex: 1,
-    textAlign: 'center',
+    textAlign: "center",
     fontFamily: FONTFAMILY.poppins_semibold,
     fontSize: FONTSIZE.size_18,
     color: COLORS.primaryOrangeHex,
