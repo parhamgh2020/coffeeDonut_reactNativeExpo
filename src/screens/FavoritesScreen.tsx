@@ -70,6 +70,7 @@ const FavoritesScreen = ({navigation}: any) => {
             )}
           </View>
         </View>
+        <View style={styles.footer}/>
       </ScrollView>
     </View>
   );
@@ -78,7 +79,7 @@ const FavoritesScreen = ({navigation}: any) => {
 const styles = StyleSheet.create({
   ScreenContainer: {
     flex: 1,
-    backgroundColor: COLORS.primaryBlackHex,
+    backgroundColor: COLORS.primaryBlue,
   },
   ScrollViewFlex: {
     flexGrow: 1,
@@ -94,6 +95,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.space_20,
     gap: SPACING.space_20,
   },
+  footer: {
+    height: 20
+  }
 });
 
 export default FavoritesScreen;

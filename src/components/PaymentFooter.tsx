@@ -43,6 +43,7 @@ const PaymentFooter: React.FC<PaymentFooterProps> = ({
 
 const styles = StyleSheet.create({
   PriceFooter: {
+    borderTopWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     color: COLORS.primaryOrangeHex,
   },
   Price: {
-    color: COLORS.primaryWhiteHex,
+    // color: COLORS.primaryWhiteHex,
   },
   PayButton: {
     backgroundColor: COLORS.primaryOrangeHex,

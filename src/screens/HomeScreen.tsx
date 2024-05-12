@@ -70,7 +70,6 @@ const HomeScreen = ({ navigation }: any) => {
 
   // function
   const searchCoffee = (search: string) => {
-    console.log("🚀 ~ searchCoffee ~ searchCoffee:", "searchCoffee")
 
     if (search != "") {
       ListRef?.current?.scrollToOffset({
@@ -96,7 +95,6 @@ const HomeScreen = ({ navigation }: any) => {
     type,
     prices,
   }: any) => {
-    console.log("🚀 ~ HomeScreen ~ CoffeeCardAddToCart:", "CoffeeCardAddToCart")
     
     addToCart({
       id,
@@ -170,16 +168,17 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   ScreenContainer: {
     flex: 1,
-    backgroundColor: COLORS.primaryBlackHex,
+    backgroundColor: COLORS.primaryBlue,
   },
   ScrollViewFlex: {
     flexGrow: 1,
   },
   ScreenTitle: {
-    fontSize: FONTSIZE.size_28,
+    fontSize: FONTSIZE.size_30,
     fontFamily: FONTFAMILY.poppins_semibold,
     color: COLORS.primaryWhiteHex,
     paddingLeft: SPACING.space_30,
+    fontWeight: '900'
   },
   CoffeeBeansTitle: {
     fontSize: FONTSIZE.size_18,

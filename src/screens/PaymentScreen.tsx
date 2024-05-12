@@ -191,7 +191,7 @@ const PaymentScreen = ({ navigation, route }: any) => {
 const styles = StyleSheet.create({
   ScreenContainer: {
     flex: 1,
-    backgroundColor: COLORS.primaryBlackHex,
+    backgroundColor: COLORS.primaryBlue,
   },
   LottieAnimation: {
     flex: 1,
@@ -224,6 +224,7 @@ const styles = StyleSheet.create({
     gap: SPACING.space_10,
     borderRadius: BORDERRADIUS.radius_15 * 2,
     borderWidth: 3,
+    backgroundColor:COLORS.secondaryLightGreyHex
   },
   CreditCardTitle: {
     fontFamily: FONTFAMILY.poppins_semibold,

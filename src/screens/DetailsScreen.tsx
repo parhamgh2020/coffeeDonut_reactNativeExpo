@@ -172,7 +172,7 @@ const DetailsScreen = ({navigation, route}: any) => {
 const styles = StyleSheet.create({
   ScreenContainer: {
     flex: 1,
-    backgroundColor: COLORS.primaryBlackHex,
+    backgroundColor: COLORS.primaryBlue,
   },
   ScrollViewFlex: {
     flexGrow: 1,
@@ -180,6 +180,7 @@ const styles = StyleSheet.create({
   },
   FooterInfoArea: {
     padding: SPACING.space_20,
+    backgroundColor: COLORS.primaryBlackHex
   },
   InfoTitle: {
     fontFamily: FONTFAMILY.poppins_semibold,

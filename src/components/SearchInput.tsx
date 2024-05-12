@@ -14,6 +14,7 @@ import {
   FONTSIZE,
   SPACING,
 } from "../theme/theme";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface SearchInputProp {
   searchCoffee: (test: string) => void;
@@ -27,7 +28,12 @@ const SearchInput: React.FC<SearchInputProp> = ({
   setSearchText,
 }) => {
   return (
-    <View style={styles.InputContainerComponent}>
+    <LinearGradient
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.InputContainerComponent}
+      colors={[COLORS.primaryBrown, COLORS.primaryBlackHex]}
+    >
       <TouchableOpacity
         onPress={() => {
           searchCoffee(searchText);
@@ -40,22 +46,22 @@ const SearchInput: React.FC<SearchInputProp> = ({
           color={
             searchText.length > 0
               ? COLORS.primaryOrangeHex
-              : COLORS.primaryLightGreyHex
+              : COLORS.primaryWhiteHex
           }
         />
       </TouchableOpacity>
       {/*  */}
       <TextInput
-        placeholder="Find Your Coffee..."
+        placeholder="Find Your Coffee..."sdf
         value={searchText}
         onChangeText={(text) => {
           setSearchText(text);
           searchCoffee(text);
         }}
-        placeholderTextColor={COLORS.primaryLightGreyHex}
+        placeholderTextColor={COLORS.primaryWhiteHex}
         style={styles.TextInputContainer}
       />
-    </View>
+    </LinearGradient>
   );
 };
 
