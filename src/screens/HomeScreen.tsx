@@ -43,6 +43,8 @@ const getCoffeeList = (category: string, data: any) => {
 };
 
 const HomeScreen = ({ navigation }: any) => {
+  console.log("🚀 ~ HomeScreen ~ HomeScreen:", "HomeScreen")
+
   // store
   const CoffeeList = useStore((state: any) => state.CoffeeList);
   const BeanList = useStore((state: any) => state.BeanList);
@@ -68,6 +70,8 @@ const HomeScreen = ({ navigation }: any) => {
 
   // function
   const searchCoffee = (search: string) => {
+    console.log("🚀 ~ searchCoffee ~ searchCoffee:", "searchCoffee")
+
     if (search != "") {
       ListRef?.current?.scrollToOffset({
         animated: true,
@@ -92,6 +96,8 @@ const HomeScreen = ({ navigation }: any) => {
     type,
     prices,
   }: any) => {
+    console.log("🚀 ~ HomeScreen ~ CoffeeCardAddToCart:", "CoffeeCardAddToCart")
+    
     addToCart({
       id,
       index,
