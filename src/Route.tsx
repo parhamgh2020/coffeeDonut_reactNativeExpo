@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { BlurView } from "expo-blur";
 import { FontAwesome } from "@expo/vector-icons";
-import { AntDesign } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
+import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 //
 import { COLORS } from "./theme/theme";
 import DetailsScreen from "./screens/DetailsScreen";
@@ -15,11 +14,18 @@ import HomeScreen from "./screens/HomeScreen";
 import CartScreen from "./screens/CartScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import OrderHistoryScreen from "./screens/OrderHistoryScreen";
+import SignIn from "./screens/authScreens/SignIn";
+import SignUp from "./screens/authScreens/SignUp";
+import { useAuthStore } from "./store/authStore";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const Route = () => {
+  const isAuthenticated: boolean = useAuthStore(
+    (state: any) => state.isAuthenticated
+  );
+
   const TabNavigator = () => {
     return (
       <Tab.Navigator
@@ -97,27 +103,56 @@ const Route = () => {
     );
   };
 
-  return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen
-          name="Tab"
-          component={TabNavigator}
-          options={{ animation: "slide_from_bottom" }}
-        ></Stack.Screen>
-        <Stack.Screen
-          name="Details"
-          component={DetailsScreen}
-          options={{ animation: "slide_from_bottom" }}
-        ></Stack.Screen>
-        <Stack.Screen
-          name="Payment"
-          component={PaymentScreen}
-          options={{ animation: "slide_from_bottom" }}
-        ></Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+  const AuthenticatedStack = () => {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen
+            name="Tab"
+            component={TabNavigator}
+            options={{ animation: "slide_from_bottom" }}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="Details"
+            component={DetailsScreen}
+            options={{ animation: "slide_from_bottom" }}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="Payment"
+            component={PaymentScreen}
+            options={{ animation: "slide_from_bottom" }}
+          ></Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  };
+
+  const NotAuthenticatedStack = () => {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen
+            name="SignIn"
+            component={SignIn}
+            options={{ animation: "simple_push" }}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{ animation: "slide_from_right" }}
+          ></Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  };
+  console.log("🚀 ~ Route ~ isAuthenticated:", isAuthenticated)
+
+  const navigationStack = false ? (
+    <AuthenticatedStack />
+  ) : (
+    <NotAuthenticatedStack />
   );
+  return navigationStack;
 };
 
 export default Route;
@@ -126,7 +161,7 @@ const styles = StyleSheet.create({
   tabBarStyle: {
     height: 60,
     position: "absolute",
-    alignItems:'flex-end',
+    alignItems: "flex-end",
     backgroundColor: COLORS.primaryBlackHex,
     borderTopWidth: 0,
     elevation: 0,

@@ -52,7 +52,7 @@ const SearchInput: React.FC<SearchInputProp> = ({
       </TouchableOpacity>
       {/*  */}
       <TextInput
-        placeholder="Find Your Coffee..."sdf
+        placeholder="Find Your Coffee..."
         value={searchText}
         onChangeText={(text) => {
           setSearchText(text);

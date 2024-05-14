@@ -98,7 +98,7 @@ const OrderHistoryScreen = ({navigation}: any) => {
 const styles = StyleSheet.create({
   ScreenContainer: {
     flex: 1,
-    backgroundColor: COLORS.primaryBlue,
+    backgroundColor: COLORS.backGround,
   },
   LottieAnimation: {
     height: 250,

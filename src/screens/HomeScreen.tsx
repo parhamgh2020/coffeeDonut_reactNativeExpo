@@ -168,7 +168,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   ScreenContainer: {
     flex: 1,
-    backgroundColor: COLORS.primaryBlue,
+    backgroundColor: COLORS.backGround,
   },
   ScrollViewFlex: {
     flexGrow: 1,
