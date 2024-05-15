@@ -4,67 +4,59 @@ import { produce } from 'immer';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+interface User {
+  username: string;
+  password: string;
+  FavoritesList: any[];
+  OrderHistoryList: any[];
+}
+
+interface AuthState {
+  isAuthenticated: boolean;
+  users: User[];
+  login: (username: string, password: string) => { is_succeed: boolean, msg: string };
+  signUp: (username: string, password: string) => { is_succeed: boolean, msg: string };
+  logout: () => void;
+}
+
 export const useAuthStore = create(
-  persist(
+  persist<AuthState>(
     (set, get) => ({
       isAuthenticated: false,
       users: [],
-      login: (username: string, password: string) => set(
-        produce(state => {
-          state.isAuthenticated = true
+      login: (username: string, password: string) => {
+        const user = get().users.find((user) => user.username === username && user.password === password);
+        if (user) {
+          set(produce((state: AuthState) => {
+            state.isAuthenticated = true;
+          }));
+          return { is_succeed: true, msg: 'Login successful' };
+        } else {
+          return { is_succeed: false, msg: 'Invalid username or password' };
         }
-        )
-      ),
-      // login: (username: string, password: string) => set(
-      //   produce(state => {
-      //     const user: any = state.users.find((item: any) => item.user.username === username)
-      //     if (user) {
-      //       if (user.password === password) {
-      //         state.isAuthenticated = true
-      //         return {
-      //           is_succeed: true,
-      //           msg: 'logged in successfully'
-      //         }
-      //       } else {
-      //         state.isAuthenticated = false
-      //         return {
-      //           is_succeed: false,
-      //           msg: 'the password is wrong'
-      //         }
-      //       }
-      //     } else {
-      //       state.isAuthenticated = false
-      //       return {
-      //         is_succeed: false,
-      //         msg: 'username not existed'
-      //       }
-      //     }
-      //   })
-      // ),
-      logout: () => set({ isAuthenticated: false }),
-      signUp: (username: string, password: string) => set(
-        produce(state => {
-          const user = state.users.find((item: any) => item.user.username === username)
-          if (user) {
-            return {
-              is_succeed: false,
-              msg: 'the username is already existed'
-            }
-          } else {
+      },
+      signUp: (username: string, password: string) => {
+        const user = get().users.find((user) => user.username === username);
+        if (user) {
+          return { is_succeed: false, msg: 'The username already exists' };
+        } else {
+          set(produce((state: AuthState) => {
             state.users.unshift({
               username,
               password,
               FavoritesList: [],
               OrderHistoryList: [],
-            })
-            state.isAuthenticated = true
-            return {
-              is_succeed: false,
-              msg: 'sign up successfully'
-            }
-          }
-        })
-      )
+            });
+            state.isAuthenticated = true;
+          }));
+          return { is_succeed: true, msg: 'Sign up successfully' };
+        }
+      },
+      logout: () => {
+        set(produce((state: AuthState) => {
+          state.isAuthenticated = false;
+        }));
+      },
     }),
     {
       name: 'auth',

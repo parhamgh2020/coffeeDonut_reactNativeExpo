@@ -147,7 +147,7 @@ const Route = () => {
   };
   console.log("🚀 ~ Route ~ isAuthenticated:", isAuthenticated)
 
-  const navigationStack = false ? (
+  const navigationStack = isAuthenticated ? (
     <AuthenticatedStack />
   ) : (
     <NotAuthenticatedStack />

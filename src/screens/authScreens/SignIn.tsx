@@ -4,8 +4,10 @@ import {
   Text,
   StyleSheet,
   StatusBar,
-  TouchableHighlight,
   Pressable,
+  Alert,
+  ScrollView,
+  Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native"; // Import useNavigation hook
 import InputText from "../../components/InputText";
@@ -25,7 +27,7 @@ const SignIn = () => {
   });
 
   const login = useAuthStore((state: any) => state.login);
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   const onChangeText = (value: string, key: keyof FormValues) => {
     setValue((vals: FormValues) => ({
@@ -35,32 +37,42 @@ const SignIn = () => {
   };
 
   const onPressButton = () => {
-    login(values.username, values.password);
+    const result = login(values.username, values.password);
+    if (!result.is_succeed) {
+      Alert.alert(result.msg);
+    }
   };
 
   const onPressText = () => {
-    navigation.navigate('SignUp')
+    navigation.navigate("SignUp");
   };
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={COLORS.primaryBlackHex} />
-      {/* form */}
-      <InputText
-        name={"username"}
-        onChangeText={(val: string) => onChangeText(val, "username")}
-      />
-      <InputText
-        name={"password"}
-        onChangeText={(val: string) => onChangeText(val, "password")}
-        secureTextEntry
-      />
-      {/* button */}
-      <Button onPress={onPressButton} type={"blue"} children={"Sign in"} />
-      {/* navigate to sign up*/}
-      <Pressable style={styles.textContainer} onPress={onPressText}>
-        <Text style={styles.text}>did not register yet?</Text>
-      </Pressable>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.ScrollViewFlex}
+      >
+        <View style={styles.formContainer}>
+          {/* form */}
+          <InputText
+            name={"username"}
+            onChangeText={(val: string) => onChangeText(val, "username")}
+          />
+          <InputText
+            name={"password"}
+            onChangeText={(val: string) => onChangeText(val, "password")}
+            secureTextEntry
+          />
+          {/* button */}
+          <Button onPress={onPressButton} type={"blue"} children={"Sign in"} />
+          {/* navigate to sign up*/}
+          <Pressable style={styles.textContainer} onPress={onPressText}>
+            <Text style={styles.text}>did not register yet?</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -71,8 +83,15 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.backGround,
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
+  },
+  ScrollViewFlex: {
+    flexGrow: 1,
+  },
+  formContainer:{
+    justifyContent: 'center',
+    height: Dimensions.get('window').height,
+    alignItems: 'center'
   },
   textContainer: {},
   text: {

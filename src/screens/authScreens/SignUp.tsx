@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, StatusBar, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  Pressable,
+  ScrollView,
+  Alert,
+  Dimensions,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native"; // Import useNavigation hook
 import InputText from "../../components/InputText";
 import { COLORS, FONTSIZE, SPACING } from "../../theme/theme";
@@ -28,7 +37,10 @@ const SignUp = () => {
   };
 
   const onPressButton = () => {
-    signUp(values.username, values.password);
+    const result = signUp(values.username, values.password);
+    if (!result.is_succeed) {
+      Alert.alert(result.msg);
+    }
   };
 
   const onPressText = () => {
@@ -38,22 +50,29 @@ const SignUp = () => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={COLORS.primaryBlackHex} />
-      {/* form */}
-      <InputText
-        name={"username"}
-        onChangeText={(val: string) => onChangeText(val, "username")}
-      />
-      <InputText
-        name={"password"}
-        onChangeText={(val: string) => onChangeText(val, "password")}
-        secureTextEntry
-      />
-      {/* button */}
-      <Button onPress={onPressButton} type={""} children={"Register"} />
-      {/* navigate to sign up*/}
-      <Pressable style={styles.textContainer} onPress={onPressText}>
-        <Text style={styles.text}>Already have account?</Text>
-      </Pressable>
+      <ScrollView
+        style={styles.ScrollViewStyle}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.formContainer}>
+          {/* form */}
+          <InputText
+            name={"username"}
+            onChangeText={(val: string) => onChangeText(val, "username")}
+          />
+          <InputText
+            name={"password"}
+            onChangeText={(val: string) => onChangeText(val, "password")}
+            secureTextEntry
+          />
+          {/* button */}
+          <Button onPress={onPressButton} type={""} children={"Register"} />
+          {/* navigate to sign up*/}
+          <Pressable style={styles.textContainer} onPress={onPressText}>
+            <Text style={styles.text}>Already have account?</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -64,8 +83,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.backGround,
-    alignItems: "center",
-    justifyContent: "center",
+  },
+  ScrollViewStyle:{
+    flexGrow:1
+  },
+  formContainer:{
+    justifyContent: 'center',
+    height: Dimensions.get('window').height,
+    alignItems: 'center'
   },
   textContainer: {},
   text: {
