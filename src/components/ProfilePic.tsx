@@ -6,11 +6,10 @@ import * as ImagePicker from "expo-image-picker";
 import { useAuthStore } from "../store/authStore";
 
 const ProfilePic = () => {
-  const getImagePath = useAuthStore(state => state.getImagePath)
-  const updateUserImage = useAuthStore(state => state.updateUserImage)
+  const getImagePath = useAuthStore((state: any) => state.getImagePath);
+  const updateUserImage = useAuthStore((state: any) => state.updateUserImage);
   // const [image, setImage] = useState(getImagePath());
-  const [image, setImage] = useState(getImagePath())
-
+  const [image, setImage] = useState(getImagePath());
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -21,10 +20,9 @@ const ProfilePic = () => {
       quality: 1,
     });
 
-
     if (!result.canceled) {
       setImage(result.assets[0].uri);
-      updateUserImage(result.assets[0].uri)
+      updateUserImage(result.assets[0].uri);
     }
   };
   return (
