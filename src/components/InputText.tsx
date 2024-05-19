@@ -53,7 +53,7 @@ const InputText: React.FC<InputTextProp> = React.memo(({ name, ...props }) => {
       <TextInput
         placeholder={name}
         placeholderTextColor={COLORS.primaryWhiteHex}
-        
+        autoCapitalize='none'
         style={styles.TextInputContainer}
         {...props}
       />

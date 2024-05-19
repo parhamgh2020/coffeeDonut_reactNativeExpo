@@ -19,15 +19,21 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/coffee_assets/latte/square/latte_pic_2_square.png",
+        "foregroundImage": "src/assets/coffee_assets/latte/square/latte_pic_2_square.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.parham_gh.coffeDonut_expo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2a91eda4-c01c-4446-804b-c632164eed44"
+      }
+    }
   }
 }

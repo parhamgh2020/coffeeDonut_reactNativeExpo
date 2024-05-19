@@ -23,6 +23,7 @@ import OrderHistoryScreen from "./screens/OrderHistoryScreen";
 import SignIn from "./screens/authScreens/SignIn";
 import SignUp from "./screens/authScreens/SignUp";
 import { useAuthStore } from "./store/authStore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,6 +31,23 @@ const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = (props: any) => {
   const logout = useAuthStore((state: any) => state.logout);
+  const username = useAuthStore((state: any) => state.username);
+
+  const clearAllData = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      console.log("🚀 ~ clearAllData ~ keys:", keys)
+      
+      if (keys.length > 0) {
+        await AsyncStorage.clear();
+        console.log("All data cleared successfully");
+      } else {
+        console.log("No data to clear in AsyncStorage");
+      }
+    } catch (error) {
+      console.error("Error clearing data:", error);
+    }
+  };
 
   return (
     <DrawerContentScrollView>
@@ -37,6 +55,11 @@ const CustomDrawerContent = (props: any) => {
         label="Logout"
         labelStyle={styles.drawerItem}
         onPress={() => logout()}
+      />
+      <DrawerItem
+        label="clear all data"
+        labelStyle={styles.drawerItem}
+        onPress={() => clearAllData()}
       />
     </DrawerContentScrollView>
   );
@@ -180,7 +203,6 @@ const Route = () => {
       </NavigationContainer>
     );
   };
-  console.log("🚀 ~ Route ~ isAuthenticated:", isAuthenticated);
 
   const navigationStack = isAuthenticated ? (
     <AuthenticatedStack />
@@ -218,6 +240,6 @@ const styles = StyleSheet.create({
     color: COLORS.primaryRedHex,
   },
   drawerStyle: {
-    backgroundColor: COLORS.primaryBlackRGBAeas
-  }
+    backgroundColor: COLORS.primaryBrown,
+  },
 });

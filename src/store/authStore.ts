@@ -7,19 +7,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 interface User {
   username: string;
   password: string;
-  FavoritesList: any[];
-  OrderHistoryList: any[];
+  imagePath?: string;
 }
 
-interface UsersImage {
-  username: string;
-  imagePath: string;
-}
 
 interface AuthState {
   isAuthenticated: boolean;
+  username: string;
   users: User[];
-  usersImage: UsersImage[];
   login: (username: string, password: string) => { is_succeed: boolean, msg: string };
   signUp: (username: string, password: string) => { is_succeed: boolean, msg: string };
   logout: () => void;
@@ -29,18 +24,30 @@ export const useAuthStore = create(
   persist<AuthState>(
     (set, get) => ({
       isAuthenticated: false,
+      username: '',
       users: [],
-      usersImage: [],
-      upsertUserImage: (username: string, imagePath: string) => {
-        const index = get().users.findIndex((user) => user.username === username);
-        if (index === -1) {
+      updateUserImage: (imagePath: string) => {
+        const username: string = get().username
+        const index = get().users.findIndex(item => item.username === username);
+        console.log("🚀 ~ index:", index)
+        console.log("🚀 ~ username:", username)
+        if (index !== -1) {
           set(produce((state: AuthState) => {
-            state.usersImage.unshift({ username, imagePath })
-          }));
+            state.users[index].imagePath = imagePath
+          }))
+        }
+      },
+      getImagePath: () => {
+        const username: string = get().username
+        const user = get().users.find(user => {
+          return user.username === username
+        })
+        console.log("🚀 ~ user:", user)
+
+        if (user) {
+          return user.imagePath
         } else {
-          set(produce((state: AuthState) => {
-            state.usersImage[index].imagePath = imagePath;
-          }));
+          return null
         }
       },
       login: (username: string, password: string) => {
@@ -48,6 +55,7 @@ export const useAuthStore = create(
         if (user) {
           set(produce((state: AuthState) => {
             state.isAuthenticated = true;
+            state.username = username;
           }));
           return { is_succeed: true, msg: 'Login successful' };
         } else {
@@ -63,10 +71,9 @@ export const useAuthStore = create(
             state.users.unshift({
               username,
               password,
-              FavoritesList: [],
-              OrderHistoryList: [],
             });
             state.isAuthenticated = true;
+            state.username = username;
           }));
           return { is_succeed: true, msg: 'Sign up successfully' };
         }

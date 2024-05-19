@@ -3,7 +3,6 @@ import React from "react";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../theme/theme";
 import GradientBGIcon from "./GradientBGIcon";
 import ProfilePic from "./ProfilePic";
-import { useAuthStore } from "../store/authStore";
 import { useNavigation } from "@react-navigation/native";
 
 interface HeaderBarProps {

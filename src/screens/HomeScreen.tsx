@@ -43,7 +43,6 @@ const getCoffeeList = (category: string, data: any) => {
 };
 
 const HomeScreen = ({ navigation }: any) => {
-  console.log("🚀 ~ HomeScreen ~ HomeScreen:", "HomeScreen")
 
   // store
   const CoffeeList = useStore((state: any) => state.CoffeeList);

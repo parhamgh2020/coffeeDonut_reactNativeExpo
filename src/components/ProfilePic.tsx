@@ -3,9 +3,14 @@ import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
 import { COLORS, SPACING } from "../theme/theme";
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
+import { useAuthStore } from "../store/authStore";
 
 const ProfilePic = () => {
-  const [image, setImage] = useState(null);
+  const getImagePath = useAuthStore(state => state.getImagePath)
+  const updateUserImage = useAuthStore(state => state.updateUserImage)
+  // const [image, setImage] = useState(getImagePath());
+  const [image, setImage] = useState(getImagePath())
+
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -16,10 +21,10 @@ const ProfilePic = () => {
       quality: 1,
     });
 
-    console.log(result);
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      updateUserImage(result.assets[0].uri)
     }
   };
   return (
