@@ -11,9 +11,15 @@ interface User {
   OrderHistoryList: any[];
 }
 
+interface UsersImage {
+  username: string;
+  imagePath: string;
+}
+
 interface AuthState {
   isAuthenticated: boolean;
   users: User[];
+  usersImage: UsersImage[];
   login: (username: string, password: string) => { is_succeed: boolean, msg: string };
   signUp: (username: string, password: string) => { is_succeed: boolean, msg: string };
   logout: () => void;
@@ -24,6 +30,19 @@ export const useAuthStore = create(
     (set, get) => ({
       isAuthenticated: false,
       users: [],
+      usersImage: [],
+      upsertUserImage: (username: string, imagePath: string) => {
+        const index = get().users.findIndex((user) => user.username === username);
+        if (index === -1) {
+          set(produce((state: AuthState) => {
+            state.usersImage.unshift({ username, imagePath })
+          }));
+        } else {
+          set(produce((state: AuthState) => {
+            state.usersImage[index].imagePath = imagePath;
+          }));
+        }
+      },
       login: (username: string, password: string) => {
         const user = get().users.find((user) => user.username === username && user.password === password);
         if (user) {
