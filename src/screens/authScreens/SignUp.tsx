@@ -37,6 +37,10 @@ const SignUp = () => {
   };
 
   const onPressButton = () => {
+    if (!values.username || !values.password) {
+      Alert.alert("Please provide username and password");
+      return;
+    }
     const result = signUp(values.username, values.password);
     if (!result.is_succeed) {
       Alert.alert(result.msg);
@@ -84,13 +88,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.backGround,
   },
-  ScrollViewStyle:{
-    flexGrow:1
+  ScrollViewStyle: {
+    flexGrow: 1,
   },
-  formContainer:{
-    justifyContent: 'center',
-    height: Dimensions.get('window').height,
-    alignItems: 'center'
+  formContainer: {
+    justifyContent: "center",
+    height: Dimensions.get("window").height,
+    alignItems: "center",
   },
   textContainer: {},
   text: {

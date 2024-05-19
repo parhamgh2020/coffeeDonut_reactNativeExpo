@@ -218,6 +218,6 @@ const styles = StyleSheet.create({
     color: COLORS.primaryRedHex,
   },
   drawerStyle: {
-    backgroundColor: COLORS.primaryBlackRGBA
+    backgroundColor: COLORS.primaryBlackRGBAeas
   }
 });
