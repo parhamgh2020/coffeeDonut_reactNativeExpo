@@ -1,13 +1,19 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import {
+  DrawerContentScrollView,
+  createDrawerNavigator,
+  DrawerItem,
+} from "@react-navigation/drawer";
+
 //
-import { COLORS } from "./theme/theme";
+import { COLORS, FONTSIZE, SPACING } from "./theme/theme";
 import DetailsScreen from "./screens/DetailsScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import HomeScreen from "./screens/HomeScreen";
@@ -20,11 +26,40 @@ import { useAuthStore } from "./store/authStore";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
+
+const CustomDrawerContent = (props: any) => {
+  const logout = useAuthStore((state: any) => state.logout);
+
+  return (
+    <DrawerContentScrollView>
+      <DrawerItem
+        label="Logout"
+        labelStyle={styles.drawerItem}
+        onPress={() => logout()}
+      />
+    </DrawerContentScrollView>
+  );
+};
 
 const Route = () => {
   const isAuthenticated: boolean = useAuthStore(
     (state: any) => state.isAuthenticated
   );
+
+  const DrawerNavigator = () => {
+    return (
+      <Drawer.Navigator
+        screenOptions={({ route }) => ({
+          drawerStyle: styles.drawerStyle,
+          headerShown: false,
+        })}
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
+      >
+        <Drawer.Screen name="TabNavigator" component={TabNavigator} />
+      </Drawer.Navigator>
+    );
+  };
 
   const TabNavigator = () => {
     return (
@@ -108,8 +143,8 @@ const Route = () => {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen
-            name="Tab"
-            component={TabNavigator}
+            name="DrawerNavigator"
+            component={DrawerNavigator}
             options={{ animation: "slide_from_bottom" }}
           ></Stack.Screen>
           <Stack.Screen
@@ -145,7 +180,7 @@ const Route = () => {
       </NavigationContainer>
     );
   };
-  console.log("🚀 ~ Route ~ isAuthenticated:", isAuthenticated)
+  console.log("🚀 ~ Route ~ isAuthenticated:", isAuthenticated);
 
   const navigationStack = isAuthenticated ? (
     <AuthenticatedStack />
@@ -176,4 +211,13 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
+  drawerItem: {
+    fontSize: FONTSIZE.size_20,
+    margin: SPACING.space_16,
+    fontWeight: "600",
+    color: COLORS.primaryRedHex,
+  },
+  drawerStyle: {
+    backgroundColor: COLORS.primaryBlackRGBA
+  }
 });
